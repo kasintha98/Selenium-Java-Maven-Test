@@ -6,10 +6,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pageobjects.GoogleSearchPage;
 
 public class GoogleTestWithTestNG {
 
     ChromeDriver driver;
+    GoogleSearchPage googleSearchPage;
 
     @BeforeTest
     public void setup(){
@@ -21,6 +23,7 @@ public class GoogleTestWithTestNG {
 
         //initiate driver
         driver = new ChromeDriver();
+        googleSearchPage = new GoogleSearchPage(driver);
         driver.get(baseUrl);
     }
 
@@ -43,11 +46,14 @@ public class GoogleTestWithTestNG {
     @Test
     public void verifyGoogleSearch(){
 
-        WebElement inputGoogleSearch = driver.findElement(By.name("q"));
-        WebElement searchButton = driver.findElement(By.name("btnK"));
+        googleSearchPage.typeGoogleSearchKey("Department of Industrial Management");
+        googleSearchPage.clickGoogleSearchBtn();
 
-        inputGoogleSearch.sendKeys("Department of Industrial Management");
-        searchButton.click();
+        //WebElement inputGoogleSearch = driver.findElement(By.name("q"));
+        //WebElement searchButton = driver.findElements(By.name("btnK")).get(1);
+
+        //inputGoogleSearch.sendKeys("Department of Industrial Management");
+        //searchButton.click();
     }
 
     @AfterTest
